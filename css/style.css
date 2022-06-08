@@ -4,6 +4,15 @@
     text-decoration: none;
     margin: 0;
     padding: 0;
+    
+}
+
+::-moz-selection { /* Code for Firefox */
+    background-color: transparent;
+}
+  
+  ::selection {
+    background-color: transparent;
 }
 
 html{
