@@ -30,6 +30,8 @@ let attemps = 0
 
 let currentTime = 0
 
+let timespeed = 2000
+
 let gameInterval;
 let gameTimeout;
 
@@ -202,12 +204,16 @@ myCanvas.onclick = function(event){
             getReaction()
         }
     }
-
+    
     else if(ctx.getImageData(event.offsetX, event.offsetY, 1, 1).data[3] == 255){
-        ctx.clearRect(0,0,myCanvas.width,myCanvas.height)
-        accuracyInterval()
+        console.log(mode)
+        if(mode == 'accuracy'){
+            ctx.clearRect(0,0,myCanvas.width,myCanvas.height)
+            accuracyInterval()
+            timespeed-=100
+        }
+            
         score++
-        // circles--
         scoreboard.innerHTML = 'Score: '+score
         timer.innerHTML = 'Circles: '+circles
         if(circles == 0){
@@ -227,6 +233,7 @@ function accuracyMode(){
         getCircle()
         score = 0
         circles = 20
+        timespeed = 1500
         scoreboard.innerHTML = 'Score: '+score
         timer.innerHTML = 'Circles: '+circles
         accuracyInterval()
@@ -253,7 +260,7 @@ function accuracyInterval(){
             timer.innerHTML = 'Finished!'
             scoreboard.innerHTML = 'Your score is '+score  
         }
-    }, 800)
+    }, timespeed)
 }
 
 
@@ -282,6 +289,8 @@ function getReaction(){
     ctx.beginPath()
     ctx.rect(0,0,myCanvas.width,myCanvas.height)
     ctx.fillStyle = 'rgba(187, 11, 11, 255)'
+
+    randomTime = Math.random()*4500+500
     gameTimeout = setTimeout(function(){
         clearInterval(gameInterval)
         time = 0
@@ -301,7 +310,7 @@ function getReaction(){
                 time = 0
             }
         }, 10)
-    }, 1000)
+    }, randomTime)
 }
 
 // 1. Пофиксить несколько интервалов # не понял задание
